@@ -3,9 +3,9 @@ package genericai;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchResult<TMovement> {
-    private List<TMovement> allMovementList;
-    private List<TMovement> resultMovementList;
+public class SearchResult<TState> {
+    private List<Movement<TState>> allMovementList;
+    private List<Movement<TState>> resultMovementList;
 
     public SearchResult(){
         allMovementList = new LinkedList<>();
@@ -13,12 +13,12 @@ public class SearchResult<TMovement> {
     }
 
 
-    public List<TMovement> getAllMovementList() {
+    public List<Movement<TState>> getAllMovementList() {
         return allMovementList;
     }
 
 
-    public List<TMovement> getResultMovementList() {
+    public List<Movement<TState>> getResultMovementList() {
         return resultMovementList;
     }
 
