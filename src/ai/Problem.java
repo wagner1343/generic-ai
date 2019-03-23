@@ -1,13 +1,20 @@
-package genericai;
+package ai;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
 public class Problem<TState> {
     private TState initialState;
     private TState finalState;
+
+    public TState getFinalState() {
+        return finalState;
+    }
+
+    public Function<TState, Set<Movement<TState>>> getStateMapFunction() {
+        return stateMapFunction;
+    }
+
     private Function<TState, Set<Movement<TState>>> stateMapFunction;
 
     public Problem(TState initialState, TState finalState, Function<TState, Set<Movement<TState>>> stateMapFunction){
@@ -20,9 +27,6 @@ public class Problem<TState> {
         return state.equals(finalState);
     }
 
-    public Set<Movement<TState>> getPossibilities(TState state){
-        return stateMapFunction.apply(state);
-    }
 
     public TState getInitialState(){
         return initialState;

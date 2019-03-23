@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GenericAI.iml" filepath="$PROJECT_DIR$/GenericAI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AIAlgorithm.iml" filepath="$PROJECT_DIR$/AIAlgorithm.iml" />
     </modules>
   </component>
 </project>

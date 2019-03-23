@@ -1,4 +1,4 @@
-package genericai;
+package ai;
 
 public class Movement<TState> {
     public TState getFromState() {
@@ -17,5 +17,13 @@ public class Movement<TState> {
         this.toState = toState;
     }
 
+    @Override
+    public String toString(){
+        String str = "";
 
+        str = str.concat("From: " + fromState.toString() + "\n");
+        str = str.concat("To: " + toState.toString());
+
+        return str;
+    }
 }

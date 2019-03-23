@@ -1,4 +1,4 @@
-package genericai;
+package ai;
 
 import java.util.LinkedList;
 import java.util.List;
