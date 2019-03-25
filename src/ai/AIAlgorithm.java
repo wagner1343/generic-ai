@@ -20,6 +20,8 @@ public class AIAlgorithm {
                                          Function<TState, List<Movement<TState>>> movementMapFunction,
                                          Function<TState, Boolean> isFinalState, SearchResult<TState> result, List<TState> pastStates){
 
+        System.out.println("CurrentState: ");
+        System.out.println(ArrayFunction.toString((Integer[][]) currentState));
         // Adicionar estado atual para a lista de estados já verificados
         pastStates.add(currentState);
 
