@@ -51,6 +51,8 @@ public class EightPuzzleProblem implements Problem<Integer[][]> {
             }
         }
 
+
+
         return movements;
     }
 }
