@@ -1,4 +1,4 @@
-package ai;
+package ai.util;
 
 import java.lang.reflect.Array;
 import java.util.LinkedList;
@@ -42,7 +42,7 @@ public class Permutation {
 
         int fat = 1;
         long sum = 0;
-        System.out.println("result.length = " + result.length);
+
         for(int x = result.length-2; x >=0 ; x--){
             sum += result[x] * fatorial(fat);
             fat++;

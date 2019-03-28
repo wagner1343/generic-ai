@@ -1,4 +1,6 @@
-package ai;
+package ai.util;
+
+import ai.util.Movement;
 
 import java.util.LinkedList;
 import java.util.List;

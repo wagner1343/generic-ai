@@ -1,5 +1,7 @@
 package ai;
 
+import ai.util.Movement;
+
 import java.util.List;
 
 public interface Problem<TState> {

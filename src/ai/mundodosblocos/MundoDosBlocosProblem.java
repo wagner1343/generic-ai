@@ -1,4 +1,7 @@
-package ai;
+package ai.mundodosblocos;
+
+import ai.util.Movement;
+import ai.Problem;
 
 import java.util.LinkedList;
 import java.util.List;

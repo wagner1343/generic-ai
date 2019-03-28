@@ -1,9 +1,13 @@
 package ai;
 
+import ai.hash.HashTable;
+import ai.hash.Hashable;
+import ai.util.ArrayFunction;
+import ai.util.Movement;
+import ai.util.SearchResult;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 
 public class AIAlgorithm {
@@ -16,12 +20,47 @@ public class AIAlgorithm {
         return result;
     }
 
+    private static <TState extends Hashable>  boolean DFS(Movement<TState> movement, TState currentState,
+                                         Function<TState, List<Movement<TState>>> movementMapFunction,
+                                         Function<TState, Boolean> isFinalState, SearchResult<TState> result, HashTable<TState> pastStates){
+
+        System.out.println("CurrentState: ");
+        System.out.println(currentState.toString());
+        // Adicionar estado atual para a lista de estados já verificados
+        pastStates.add(currentState);
+
+        // Salvar movimento, se ele existir
+        if(movement != null)
+            result.getAllMovementList().add(movement);
+
+        // Verificar se o estado alvo foi encontrado
+        if(isFinalState.apply(currentState)){
+            if(movement != null)
+                result.getResultMovementList().add(movement);
+
+            return true;
+        }
+
+        // Para todas possibilidades a partir do estado atual, avaliar se ela já foi percorrida, se ainda ela não foi, percorre-la
+        for(Movement<TState> possibleMovement : movementMapFunction.apply(currentState))
+            if(!pastStates.contains(possibleMovement.getToState()))
+                if(DFS(possibleMovement, possibleMovement.getToState(), movementMapFunction, isFinalState, result, pastStates)) {
+                    if(movement != null)
+                        result.getResultMovementList().add(movement);
+
+                    return true;
+                }
+
+        // Se o estado alvo não foi encontrado, retornar falso
+        return false;
+    }
+
     private static <TState>  boolean DFS(Movement<TState> movement, TState currentState,
                                          Function<TState, List<Movement<TState>>> movementMapFunction,
                                          Function<TState, Boolean> isFinalState, SearchResult<TState> result, List<TState> pastStates){
 
         System.out.println("CurrentState: ");
-        System.out.println(ArrayFunction.toString((Integer[][]) currentState));
+        System.out.println(currentState.toString());
         // Adicionar estado atual para a lista de estados já verificados
         pastStates.add(currentState);
 

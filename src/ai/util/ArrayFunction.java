@@ -1,4 +1,4 @@
-package ai;
+package ai.util;
 
 public class ArrayFunction {
     public static String toString(Object[][] arr){

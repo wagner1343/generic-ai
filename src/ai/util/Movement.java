@@ -1,4 +1,4 @@
-package ai;
+package ai.util;
 
 public class Movement<TState> {
     public TState getFromState() {
