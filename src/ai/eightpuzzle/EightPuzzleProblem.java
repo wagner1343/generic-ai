@@ -1,5 +1,6 @@
 package ai.eightpuzzle;
 
+import ai.ProblemWeighted;
 import ai.util.ArrayFunction;
 import ai.util.Movement;
 import ai.Problem;
@@ -9,9 +10,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class EightPuzzleProblem implements Problem<Board> {
+public class EightPuzzleProblem implements ProblemWeighted<Board> {
     private Board initialState;
     private Board finalState;
+
+    public int getWeight(Board b){
+        int res = 0;
+        Integer[][] m = b.getValue();
+        for(int x = 0; x < m.length; x++){
+            for(int y = 0; y < m[x].length; y++){
+                if(m[x][y] == finalState.getValue()[x][y])
+                    res++;
+            }
+        }
+
+        return res;
+    }
 
     public EightPuzzleProblem(){
         LinkedList<Integer> numbers = new LinkedList<>();

@@ -4,6 +4,7 @@ import ai.hash.HashTable;
 import ai.hash.Hashable;
 import ai.util.Movement;
 import ai.util.MovementNode;
+import ai.util.MovementNodeWeighted;
 import ai.util.SearchResult;
 
 import java.util.*;
@@ -32,9 +33,43 @@ public class AIAlgorithm {
         LinkedList<MovementNode<TState>> movementQueue = new LinkedList<>();
 
         movementQueue.addLast(new MovementNode<>(null, problem.getInitialState()));
+
+        while(!movementQueue.isEmpty()){
+            MovementNode<TState> currentMovement = movementQueue.pollFirst();
+            TState currentState = currentMovement.getState();
+
+            // Adicionar estado atual para a lista de estados já verificados
+            pastStates.add(currentState);
+
+            // Verificar se o estado alvo foi encontrado
+            if(problem.isFinalState(currentState)){
+                System.out.println("Estado final encontrado");
+                return currentMovement;
+            }
+
+            // Adicionar todos estados possiveis a partir desse para a fila de estados a serem abertos
+            for(Movement<TState> m : problem.mapPossibleMovements(currentState)){
+                if(!pastStates.contains(m.getToState()))
+                    movementQueue.addLast(new MovementNode<>(currentMovement, m.getToState()));
+            }
+        }
+
+        return null;
+    }
+
+    public static <TState extends Hashable> MovementNode<TState> bfsHashAStar(ProblemWeighted<TState> problem){
+        HashTable<TState> pastStates = new HashTable<>();
+        PriorityQueue<MovementNodeWeighted<TState>> movementQueue = new PriorityQueue<>(new Comparator<MovementNodeWeighted<TState>>() {
+            @Override
+            public int compare(MovementNodeWeighted<TState> o1, MovementNodeWeighted<TState> o2) {
+                return o2.getWeight() - o1.getWeight();
+            }
+        });
+
+        movementQueue.add(new MovementNodeWeighted<>(null, problem.getInitialState(), 0));
         while(!movementQueue.isEmpty()){
             //System.out.println("pastStates.size() = " + pastStates.size());
-            MovementNode<TState> currentMovement = movementQueue.pollFirst();
+            MovementNodeWeighted<TState> currentMovement = movementQueue.poll();
             TState currentState = currentMovement.getState();
 
             // Adicionar estado atual para a lista de estados já verificados
@@ -50,7 +85,7 @@ public class AIAlgorithm {
             for(Movement<TState> m : problem.mapPossibleMovements(currentState)){
 
                 if(!pastStates.contains(m.getToState()))
-                    movementQueue.addLast(new MovementNode<>(currentMovement, m.getToState()));
+                    movementQueue.add(new MovementNodeWeighted<>(currentMovement, m.getToState(), problem.getWeight(m.getToState())));
             }
         }
 

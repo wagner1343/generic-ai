@@ -10,15 +10,44 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Problem<Board> p = new EightPuzzleProblem();
+        ProblemWeighted<Board> p = new EightPuzzleProblem();
         System.out.println(p.getInitialState().toString());
-        MovementNode res = AIAlgorithm.bfsHash(p);
 
-        List<Board> resultList = res.getResultStack();
+        long time = System.nanoTime();
+        MovementNode res = AIAlgorithm.bfsHashAStar(p);
 
-        for(Board b : resultList){
-            System.out.println(b.toString());
+        long tStar = (System.nanoTime() - time );
+
+        if(res == null){
+            System.out.println("O problema não rem resolução");
+        }
+        else {
+            List<Board> resultList = res.getResultStack();
+            System.out.println("Solução a*");
+            for (Board b : resultList) {
+                System.out.println(b.toString());
+            }
         }
 
+        time = System.nanoTime();
+        res = AIAlgorithm.bfsHash(p);
+        long tHash = (System.nanoTime() - time );
+
+
+        if(res == null){
+            System.out.println("O problema não rem resolução");
+        }
+        else {
+            System.out.println("Solução hash");
+            List<Board> resultList = res.getResultStack();
+
+            for (Board b : resultList) {
+                System.out.println(b.toString());
+            }
+        }
+
+
+        System.out.println("Tempo a*          : " + (tStar/10000));
+        System.out.println("Tempo apenas hash : " + (tHash/10000));
     }
 }

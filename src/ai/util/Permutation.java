@@ -30,7 +30,7 @@ public class Permutation {
         for(int x = 0; x < base.length; x++){
             int index = 0;
             while(!baseCopy.isEmpty()) {
-                Object o = baseCopy.get(index);
+                Object o = baseCopy.get(index); // a - a  cba abc 321   321  212 abc acb bac bca cab cba
                 if (o.equals(target[x])) {
                     result[x] = index;
                     baseCopy.remove(index);

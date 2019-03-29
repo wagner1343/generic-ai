@@ -37,6 +37,7 @@ public class Board implements Hashable {
         return str;
     }
 
+
     @Override
     public boolean equals(Object obj){
             Board comp = (Board) obj;

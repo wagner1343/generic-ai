@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Stack;
 
 public class MovementNode<TState> {
-    private MovementNode<TState> origin;
+    public MovementNode<TState> origin;
 
     public TState getState() {
         return state;
     }
-    private TState state;
+    public TState state;
 
     public MovementNode(MovementNode<TState> origin, TState state) {
         this.origin = origin;
