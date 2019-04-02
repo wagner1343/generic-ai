@@ -47,7 +47,7 @@ public class Main {
         }
 
 
-        System.out.println("Tempo a*          : " + (tStar/10000));
-        System.out.println("Tempo apenas hash : " + (tHash/10000));
+        System.out.println("Tempo manhattan   : " + (tStar/1000000) + "ms");
+        System.out.println("Tempo apenas hash : " + (tHash/1000000) + "ms");
     }
 }

@@ -62,7 +62,7 @@ public class AIAlgorithm {
         PriorityQueue<MovementNodeWeighted<TState>> movementQueue = new PriorityQueue<>(new Comparator<MovementNodeWeighted<TState>>() {
             @Override
             public int compare(MovementNodeWeighted<TState> o1, MovementNodeWeighted<TState> o2) {
-                return o2.getWeight() - o1.getWeight();
+                return o1.getWeight() - o2.getWeight();
             }
         });
 
@@ -83,7 +83,6 @@ public class AIAlgorithm {
 
             // Adicionar todos estados possiveis a partir desse para a fila de estados a serem abertos
             for(Movement<TState> m : problem.mapPossibleMovements(currentState)){
-
                 if(!pastStates.contains(m.getToState()))
                     movementQueue.add(new MovementNodeWeighted<>(currentMovement, m.getToState(), problem.getWeight(m.getToState())));
             }

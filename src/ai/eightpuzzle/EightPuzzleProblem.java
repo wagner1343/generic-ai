@@ -13,14 +13,19 @@ import java.util.Random;
 public class EightPuzzleProblem implements ProblemWeighted<Board> {
     private Board initialState;
     private Board finalState;
+    private Pair<Integer, Integer>[] reverseFinalState;
 
+    // Manhattan
     public int getWeight(Board b){
         int res = 0;
         Integer[][] m = b.getValue();
         for(int x = 0; x < m.length; x++){
             for(int y = 0; y < m[x].length; y++){
-                if(m[x][y] == finalState.getValue()[x][y])
-                    res++;
+                int val = b.getValue()[x][y];
+                int distX = Math.abs(x - reverseFinalState[val].getKey());
+                int distY = Math.abs(y - reverseFinalState[val].getValue());
+
+                res += distX + distY;
             }
         }
 
@@ -31,6 +36,7 @@ public class EightPuzzleProblem implements ProblemWeighted<Board> {
         LinkedList<Integer> numbers = new LinkedList<>();
         initialState = new Board(3, 3);
         finalState = new Board(3, 3);
+        reverseFinalState = new Pair[9];
 
         Random r = new Random();
 
@@ -43,6 +49,7 @@ public class EightPuzzleProblem implements ProblemWeighted<Board> {
             for(int y = 0; y < 3; y++){
                 initialState.getValue()[x][y] = numbers.remove(r.nextInt(numbers.size()));
                 finalState.getValue()[x][y] = count;
+                reverseFinalState[count] = new Pair<>(x, y);
                 count++;
             }
         }
