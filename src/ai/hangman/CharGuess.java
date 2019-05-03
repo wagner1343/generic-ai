@@ -15,6 +15,17 @@ public class CharGuess {
 
     }
 
+    @Override
+    public boolean equals(Object o){
+        CharGuess c2 = (CharGuess) o;
+        if(value != c2.value)
+            return false;
+        if(!position.equals(c2.position)){
+            return false;
+        }
+
+        return true;
+    }
     public CharGuess clone() throws CloneNotSupportedException {
         super.clone();
         CharGuess charGuess2 = new CharGuess();

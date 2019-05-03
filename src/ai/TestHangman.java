@@ -4,6 +4,8 @@ import ai.hangman.CharGuess;
 import ai.hangman.HangmanProblem;
 import ai.hangman.HangmanState;
 import ai.util.Movement;
+import ai.util.MovementNode;
+import ai.util.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +19,7 @@ public class TestHangman {
 
         CharGuess[] guesses = hangmanProblem.charArrayToGuessArray(list.get(0));
 
-        for(int x = 0; x < guesses.length; x++){
-
-            if(guesses[x].position.size() != 0){
-                System.out.println("x = " + x);
-                System.out.println("(char) guesses[x].value = " + (char) guesses[x].value);
-
-                for(int y = 0; y < guesses[x].position.size(); y++){
-                    System.out.println("guesses[x].position.get(y) = " + guesses[x].position.get(y));
-                }
-            }
-        }
+        guesses.toString();
 
         HangmanState initialState = hangmanProblem.getInitialState();
 
@@ -39,6 +31,15 @@ public class TestHangman {
             System.out.println();
             System.out.println("To");
             m.getToState().toString();
+            System.out.println();
+        }
+
+        MovementNode<HangmanState> result = AIAlgorithm.bfsAStar(hangmanProblem);
+
+        System.out.println("Result:");
+        for(HangmanState m : result.getResultStack()){
+            System.out.println("Stack");
+            m.toString();
             System.out.println();
         }
 

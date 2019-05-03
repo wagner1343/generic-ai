@@ -40,7 +40,7 @@ public class HangmanProblem implements ProblemWeighted<HangmanState> {
             if(t.guessedChars[x] != null)
                 sum += t.guessedChars[x].position.size();
         }
-        return 0;
+        return sum;
     }
 
     @Override

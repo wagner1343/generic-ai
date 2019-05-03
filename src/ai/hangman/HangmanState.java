@@ -8,10 +8,25 @@ public class HangmanState {
     }
 
     @Override
+    public boolean equals(Object o){
+        HangmanState state2 = (HangmanState) o;
+
+        for(int x = 0; x < 24; x++){
+            if(guessedChars[x] != null && state2.guessedChars[x] == null){
+                return  false;
+            }
+            if(state2.guessedChars[x] != null && guessedChars[x] == null){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    @Override
     public String toString(){
         for(int x = 0; x < guessedChars.length; x++){
 
-            if(guessedChars[x] != null && guessedChars[x].position.size() != 0){
+            if(guessedChars[x] != null ){
                 System.out.println("x = " + x);
                 System.out.println("(char) guesses[x].value = " + (char) guessedChars[x].value);
 

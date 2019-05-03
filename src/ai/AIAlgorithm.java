@@ -91,6 +91,48 @@ public class AIAlgorithm {
         return null;
     }
 
+    public static <TState> MovementNode<TState> bfsAStar(ProblemWeighted<TState> problem){
+        ArrayList<TState> pastStates = new ArrayList<>();
+        PriorityQueue<MovementNodeWeighted<TState>> movementQueue = new PriorityQueue<>(new Comparator<MovementNodeWeighted<TState>>() {
+            @Override
+            public int compare(MovementNodeWeighted<TState> o1, MovementNodeWeighted<TState> o2) {
+                return o1.getWeight() - o2.getWeight();
+            }
+        });
+
+        movementQueue.add(new MovementNodeWeighted<>(null, problem.getInitialState(), 0));
+        while(!movementQueue.isEmpty()){
+            System.out.println("pastStates.size() = " + pastStates.size());
+            MovementNodeWeighted<TState> currentMovement = movementQueue.poll();
+            TState currentState = currentMovement.getState();
+            System.out.println("currentState :\n" + currentState.toString());
+
+            // Adicionar estado atual para a lista de estados já verificados
+            pastStates.add(currentState);
+
+            // Verificar se o estado alvo foi encontrado
+            if(problem.isFinalState(currentState)){
+                System.out.println("Estado final encontrado");
+                return currentMovement;
+            }
+
+            // Adicionar todos estados possiveis a partir desse para a fila de estados a serem abertos
+            for(Movement<TState> m : problem.mapPossibleMovements(currentState)){
+                if(!pastStates.contains(m.getToState())) {
+                    MovementNodeWeighted<TState> novoMovimento = new MovementNodeWeighted<>(currentMovement, m.getToState(), problem.getWeight(m.getToState()));
+                    System.out.println("Adicionando movimento");
+                    System.out.println("Peso: " + novoMovimento.getWeight());
+
+                    System.out.println("estado:");
+                    novoMovimento.getState().toString();
+                    movementQueue.add(new MovementNodeWeighted<>(currentMovement, m.getToState(), problem.getWeight(m.getToState())));
+                }
+            }
+        }
+
+        return null;
+    }
+
     private static <TState>  boolean dfs(Movement<TState> movement, TState currentState,
                                          Function<TState, List<Movement<TState>>> movementMapFunction,
                                          Function<TState, Boolean> isFinalState, SearchResult<TState> result, Collection<TState> pastStates){
